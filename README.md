@@ -1,2 +1,2 @@
-# chrome-runner
+# node-chrome-runner
 A small library to run Chrome
