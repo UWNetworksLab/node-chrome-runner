@@ -17,7 +17,7 @@ gulp dist # build the library
 var chrome_runner = require('./build/dist/node-chrome-runner/chrome-runner');
 
 # Load if it is in your npm path (e.g. if it's in your package dependencies).
-var chrome_runner = require('chrome-runner');
+var chrome_runner = require('node-chrome-runner');
 
 # Start chrome; returns the child process as `c1.childProcess`...
 var c1 = chrome_runner.runChrome();
