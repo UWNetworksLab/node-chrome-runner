@@ -47,5 +47,5 @@ var c = chrome_runner.runChrome({
 });
 
 # Send a close signal to the started chrome.
-c.childProcess.kill('SIGHUP');
+c.childProcess.kill();
 ```
