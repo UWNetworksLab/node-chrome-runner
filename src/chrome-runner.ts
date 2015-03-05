@@ -8,15 +8,15 @@ import fs = require('fs');
 
 export var chromePaths = {
   windowsXp:
-      path.join(process.env['HOMEPATH'],
+      path.join(process.env['HOMEPATH'] || '',
         'Local Settings\\Application Data\\Google\\Chrome\\Application\\chrome.exe'),
   windowsVista:
-      path.join(process.env['USERPROFILE'],
+      path.join(process.env['USERPROFILE'] || '',
         '\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe'),
   macSystem: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome',
-  macUser: path.join(process.env['HOME'], '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'),
+  macUser: path.join(process.env['HOME'] || '', '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'),
   macCanarySystem: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary',
-  macCanaryUser: path.join(process.env['HOME'], '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'),
+  macCanaryUser: path.join(process.env['HOME'] || '', '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'),
   linuxSystem: '/usr/bin/google-chrome',
   linuxSystemCanary: '/usr/bin/google-chrome-canary'
 }
@@ -54,7 +54,7 @@ export function runChrome(
     config:{ path?:string;
              args?:string[];
              processOptions?:NodeChildProcessOptions;
-    } = {}) : { chosenChromePath :string;
+    } = {}) : { path :string;
                 childProcess :childProcess.ChildProcess } {
   var chromePaths :string[] = config.path ? [config.path] : osChromePaths();
   var chosenChromePath :string = pickFirstExistingPath(chromePaths);
@@ -63,7 +63,7 @@ export function runChrome(
     throw new Error('Cannot find Chrome binary in: ' + chromePaths.toString());
   }
   return {
-    chosenChromePath: chosenChromePath,
+    path: chosenChromePath,
     childProcess :childProcess.spawn(chosenChromePath, config.args,
                                      config.processOptions),
   };

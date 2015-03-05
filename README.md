@@ -1,14 +1,41 @@
 # node-chrome-runner
 
-A small library to run Chrome
+A small library to run Chrome.
+
+## Building the library
+
+```
+./setup install  # install npm and third_party tools/libraries
+gulp dist # build the library
+```
+
+## Usage
 
 Example usage within node:
 
 ```
-var chrome_runner = require('./build/tools/chrome-runner');
-var c1 = chrome_runner.runChrome({
+var chrome_runner = require('./build/dist/node-chrome-runner/chrome-runner');
+
+# Start chrome; returns the child process as `c1.childProcess`.
+var c1 = chrome_runner.runChrome();
+
+# Console log the path used to start chrome.
+console.log(c1.path);
+
+# Run chrome with a custom path, and argument to make chrome start
+# with user directory `tmp/foo` on Mac:
+var c2 = chrome_runner.runChrome({
   path: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary',
   args:['--user-data-dir=tmp/foo'],
   processOptions:{stdio: 'inherit'}
 });
+
+# or use platform found version, but set the user-data dir:
+var c3 = chrome_runner.runChrome({
+  args:['--user-data-dir=tmp/foo'],
+  processOptions:{stdio: 'inherit'}
+});
+
+# Send a close signal to the started chrome.
+c3.childProcess.kill('SIGHUP');
 ```
