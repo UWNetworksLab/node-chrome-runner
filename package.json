@@ -1,7 +1,7 @@
 {
   "name": "node-chrome-runner",
   "description": "A small node library to run Chrome.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "https://github.com/uProxy/node-chrome-runner"
