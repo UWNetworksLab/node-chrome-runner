@@ -1,7 +1,7 @@
 {
   "name": "node-chrome-runner",
   "description": "A small node library to run Chrome.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "https://github.com/uProxy/node-chrome-runner"
@@ -10,6 +10,7 @@
     "url": "https://github.com/uProxy/node-chrome-runner/issues",
     "email": "info@uproxy.org"
   },
+  "main": "build/dist/node-chrome-runner/chrome-runner.js",
   "licenses": [
     {
       "type": "Apache-2.0",

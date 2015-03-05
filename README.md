@@ -11,26 +11,29 @@ gulp dist # build the library
 
 ## Usage
 
-Example usage within node:
 
 ```
+# Load with a relative path from the root of the node-chrome-runner repo...
 var chrome_runner = require('./build/dist/node-chrome-runner/chrome-runner');
 
-# Start chrome; returns the child process as `c1.childProcess`.
+# Load if it is in your npm path (e.g. if it's in your package dependencies).
+var chrome_runner = require('chrome-runner');
+
+# Start chrome; returns the child process as `c1.childProcess`...
 var c1 = chrome_runner.runChrome();
 
-# Console log the path used to start chrome.
+# Console log the path used to start chrome...
 console.log(c1.path);
 
 # Run chrome with a custom path, and argument to make chrome start
-# with user directory `tmp/foo` on Mac:
+# with user directory `tmp/foo` on Mac...
 var c2 = chrome_runner.runChrome({
   path: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary',
   args:['--user-data-dir=tmp/foo'],
   processOptions:{stdio: 'inherit'}
 });
 
-# or use platform found version, but set the user-data dir:
+# or use platform found version, but set the user-data dir...
 var c3 = chrome_runner.runChrome({
   args:['--user-data-dir=tmp/foo'],
   processOptions:{stdio: 'inherit'}
