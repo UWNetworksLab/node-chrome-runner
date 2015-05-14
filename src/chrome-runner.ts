@@ -38,9 +38,9 @@ var chromeCanaryPaths :PlatformPaths = {
         '\\AppData\\Local\\Google\\Chrome\ SxS\\Application\\chrome.exe')],
   macSystem: ['/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'],
   macUser: [path.join(process.env['HOME'] || '', '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary')],
-  linuxSystem: ['/usr/bin/google-chrome-canary',
-                '/usr/local/bin/google-chrome-canary',
-                '/opt/bin/google-chrome-canary']
+  linuxSystem: ['/usr/bin/google-chrome-unstable',
+                '/usr/local/bin/google-chrome-unstable',
+                '/opt/bin/google-chrome-unstable']
 }
 
 export var chromePaths = {
