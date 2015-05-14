@@ -11,6 +11,8 @@ gulp dist # build the library
 
 ## Usage
 
+From within a `node` console...
+
 ```
 # Load with a relative path from the root of the node-chrome-runner repo...
 var chrome_runner = require('./build/dist/node-chrome-runner/chrome-runner');
@@ -23,6 +25,11 @@ var c = chrome_runner.runChrome();
 
 # Console log the path used to start chrome...
 console.log(c.path);
+
+# Run with only chromium paths
+var c = chrome_runner.runChrome({
+  versions: [chrome_runner.chromiumPaths]
+});
 
 # Run chrome with a custom path, and argument to make chrome start
 # with user directory `tmp/foo` on Mac...
