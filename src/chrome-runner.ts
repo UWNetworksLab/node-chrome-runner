@@ -7,36 +7,40 @@ import childProcess = require('child_process');
 import fs = require('fs');
 
 export interface PlatformPaths {
-  windowsXp      ?: string;
-  windowsVista   ?: string;
-  macSystem      ?: string;
-  macUser        ?: string;
-  linuxSystem    ?: string;
-  [other:string] : string;
+  windowsXp      ?: string[];
+  windowsVista   ?: string[];
+  macSystem      ?: string[];
+  macUser        ?: string[];
+  linuxSystem    ?: string[];
+  [other:string] : string[];
 }
 
 var chromeStablePaths :PlatformPaths = {
   windowsXp:
-      path.join(process.env['HOMEPATH'] || '',
-        'Local Settings\\Application Data\\Google\\Chrome\\Application\\chrome.exe'),
+      [path.join(process.env['HOMEPATH'] || '',
+        'Local Settings\\Application Data\\Google\\Chrome\\Application\\chrome.exe')],
   windowsVista:
-      path.join(process.env['USERPROFILE'] || '',
-        '\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe'),
-  macSystem: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome',
-  macUser: path.join(process.env['HOME'] || '', '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'),
-  linuxSystem: '/usr/bin/google-chrome',
+      [path.join(process.env['USERPROFILE'] || '',
+        '\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe')],
+  macSystem: ['/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'],
+  macUser: [path.join(process.env['HOME'] || '', '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome')],
+  linuxSystem: ['/usr/bin/google-chrome',
+                '/usr/local/bin/google-chrome',
+                '/opt/bin/google-chrome'],
 }
 
 var chromeCanaryPaths :PlatformPaths = {
   windowsXp:
-      path.join(process.env['HOMEPATH'] || '',
-        'Local Settings\\Application Data\\Google\\Chrome\ SxS\\Application\\chrome.exe'),
+      [path.join(process.env['HOMEPATH'] || '',
+        'Local Settings\\Application Data\\Google\\Chrome\ SxS\\Application\\chrome.exe')],
   windowsVista:
-      path.join(process.env['USERPROFILE'] || '',
-        '\\AppData\\Local\\Google\\Chrome\ SxS\\Application\\chrome.exe'),
-  macSystem: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary',
-  macUser: path.join(process.env['HOME'] || '', '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'),
-  linuxSystem: '/usr/bin/google-chrome-canary'
+      [path.join(process.env['USERPROFILE'] || '',
+        '\\AppData\\Local\\Google\\Chrome\ SxS\\Application\\chrome.exe')],
+  macSystem: ['/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'],
+  macUser: [path.join(process.env['HOME'] || '', '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary')],
+  linuxSystem: ['/usr/bin/google-chrome-canary',
+                '/usr/local/bin/google-chrome-canary',
+                '/opt/bin/google-chrome-canary']
 }
 
 export var chromePaths = {
@@ -53,8 +57,11 @@ export function pickFirstPath(chromePathsForVersions:PlatformPaths[])
   for(var i = 0; i < chromePathsForVersions.length; ++i) {
     var chromePaths = chromePathsForVersions[i];
     for (var pathName in chromePaths) {
-      var path = chromePaths[pathName];
-      if (fs.existsSync(path)) return path;
+      var paths = chromePaths[pathName];
+      for (var j = 0; j < paths.length; j++) {
+        var path = paths[j];
+        if (fs.existsSync(path)) return path;
+      }
     }
   }
 
@@ -74,7 +81,7 @@ export function runChrome(
                 childProcess :childProcess.ChildProcess } {
 
   var chromePathsForVersions :PlatformPaths[] =
-      config.path ? [{ other: config.path }]
+      config.path ? [{ other: [config.path] }]
                   : config.versions
                     || [chromePaths.stable, chromePaths.canary];
   var chosenChromePath = pickFirstPath(chromePathsForVersions);

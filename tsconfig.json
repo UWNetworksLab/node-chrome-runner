@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "outDir": "build/dev/node-chrome-runner",
+        "sourceMap": true,
+        "target": "es5"
+    },
+    "files": [
+        "src/chrome-runner.ts"
+    ]
+}
