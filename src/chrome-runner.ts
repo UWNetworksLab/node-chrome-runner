@@ -48,6 +48,20 @@ export var chromePaths = {
   canary: chromeCanaryPaths
 };
 
+export var chromiumPaths :PlatformPaths = {
+  windowsXp:
+      [path.join(process.env['HOMEPATH'] || '',
+        'Local Settings\\Application Data\\Chromium\\Application\\chromium.exe')],
+  windowsVista:
+      [path.join(process.env['USERPROFILE'] || '',
+        '\\AppData\\Local\\Chromium\\Application\\chromium.exe')],
+  macSystem: ['/Applications/Chromium.app/Contents/MacOS/Chromium'],
+  macUser: [path.join(process.env['HOME'] || '', '/Applications/Chromium.app/Contents/MacOS/Chromium')],
+  linuxSystem: ['/usr/bin/chrome',
+                '/usr/local/bin/chrome',
+                '/opt/bin/chrome'],
+};
+
 // Utility function to pick the first path for chrome that exists in the
 // filesystem (searches in order, lexographically first of version specified,
 // and then for that version for each platform path). Returns null if no path
@@ -83,7 +97,7 @@ export function runChrome(
   var chromePathsForVersions :PlatformPaths[] =
       config.path ? [{ other: [config.path] }]
                   : config.versions
-                    || [chromePaths.stable, chromePaths.canary];
+                    || [chromiumPaths, chromePaths.stable, chromePaths.canary];
   var chosenChromePath = pickFirstPath(chromePathsForVersions);
 
   if (!chosenChromePath) {
