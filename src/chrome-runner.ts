@@ -17,8 +17,8 @@ export var chromePaths = {
   macUser: path.join(process.env['HOME'], '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome)',
   macCanarySystem: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary',
   macCanaryUser: path.join(process.env['HOME'], '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary',
-  linuxSystem = '/usr/bin/google-chrome',
-  linuxSystem = '/usr/bin/google-chrome-canary'
+  linuxSystem: '/usr/bin/google-chrome',
+  linuxCanarySystem '/usr/bin/google-chrome-canary'
 }
 
 // Utility function to give list of operating system paths that may contain the
